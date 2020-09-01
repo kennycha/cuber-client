@@ -394,3 +394,6 @@
     // tslint:disable-next-line:rule1 rule2 rule3... - Disables the listed rules for the next line
     ```
 
+## 3.9 Global Styles Set Up
+
+- [google fonts](https://fonts.google.com/)

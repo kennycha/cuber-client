@@ -2,13 +2,9 @@ import React from "react";
 import { graphql } from "react-apollo";
 import { IS_LOGGED_IN } from "./AppQueries";
 import AppPresenter from "./AppPresenter";
-import { ThemeProvider, createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
+import { ThemeProvider } from "styled-components";
 import { theme } from "../../styles/theme";
-
-const GlobalStyle = createGlobalStyle`
-  ${reset}
-`;
+import GlobalStyle from "../../styles/global-styles";
 
 const AppContainer = ({ data }) => (
   <ThemeProvider theme={theme}>
