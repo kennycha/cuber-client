@@ -172,3 +172,42 @@
       - `logUserIn` : args.token을 localStorage에 'jwt' 로 추가하고, context의 cache (state) data 를 `writeData()`를 사용해 변경
       - `logUserOut` : localStorage에서 'jwt'를 삭제하고, context의 cache에 있는 data를 `writeData()`를 사용해 변경
 
+## 3.5 Connecting Local State to Components
+
+- `AppContainer` 에게 현재 로그인 유무를 어떻게 알려줄 수 있을까
+
+  - client의 `clientState` 에서 `isLoggedIn` 을 체크
+
+    - apollo-boost의 `gql` 을 사용해 Query 작성
+
+    - 이때, 서버가 아닌 클라이언트(cache)로 Query를 날리므로, 쿼리에 `@client` 를 붙여서 명시해야 한다
+
+      ```typescript
+      import { gql } from "apollo-boost";
+      
+      export const IS_LOGGED_IN = gql`
+        {
+          auth {
+            isLoggedIn @client
+          }
+        }
+      `;
+      ```
+
+  - 연결
+
+    - 작성된 쿼리를 AppContainer 에 불러와, react-apollo의 `graphql` 을 통해 적용
+
+      ```tsx
+      // AppContainer.tsx
+      
+      import React from "react";
+      import { graphql } from "react-apollo";
+      import { IS_LOGGED_IN } from "./AppQueries";
+      
+      const AppContainer = ({ data }) => (<div>{JSON.stringify(data)}</div>);
+      
+      export default graphql(IS_LOGGED_IN)(AppContainer);
+      ```
+
+      
