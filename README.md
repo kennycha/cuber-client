@@ -397,3 +397,69 @@
 ## 3.9 Global Styles Set Up
 
 - [google fonts](https://fonts.google.com/)
+
+## 3.10 Planning the Routes
+
+### Logged Out:
+
+- [ ] Home
+- [ ] Phone Login
+- [ ] Verify Phone Number
+- [ ] Social Login
+
+---
+
+### Logged In:
+
+- [ ] Home
+- [ ] Ride
+- [ ] Edit Account
+- [ ] Settings
+- [ ] Saved Places
+- [ ] Add Place
+- [ ] Find Address
+
+---
+
+### Challenge: 
+
+- [ ] Ride History
+
+---
+
+## 3.11 Router and Routes
+
+- react-router-dom
+
+  - for page routing
+
+    - [npm|react-router-dom](https://www.npmjs.com/package/react-router-dom)
+    - [react-router|basic routing](https://reactrouter.com/web/guides/quick-start)
+
+  - 설치
+
+    ```bash
+    $ npm i react-router-dom
+    $ npm i @types/react-router-dom -D
+    ```
+
+  - `BrowserRouter`
+
+  - `Redirect`
+
+    - 설정된 path 외의 값으로 접근할 때 redirect 
+
+    - ```tsx
+      <Redirect from={"*"} to={"/"} />
+      ```
+
+  - `Route`
+
+  - `Switch`
+
+    - When a `<Switch>` is rendered, it searches through its `children` `<Route>` elements to find one whose `path` matches the current URL. When it finds one, it renders that `<Route>` and ignores all others. 
+
+- `isLoggedIn` 값에 따라 다른 Routes 사용
+
+  - `LoggedInRoutes`
+  - `LoggedOutRoutes`
