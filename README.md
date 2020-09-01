@@ -260,3 +260,137 @@
     - interface를 정의한 덕에 더 쉽게 설정 가능
 
   - 만약 typescript 를 통해 type을 설정하지 않았다면, runtime 환경에서야 `prop-types` 를 통해 잘못을 발견할 수 있었을 것
+
+## 3.7~8 Typescript and Styled Components
+
+- Setup for `@types/styled-components`
+
+  - [styled-components|typescript](https://styled-components.com/docs/api#typescript)
+
+  - 강의에서는 typed-components를 통해 새로 theme을 만들어 선언했지만, `@types/styled-components` 추가 후 직접 추가하는 방식이 가능하다
+
+  - [Reference|setup-styled-components](https://flowkater.io/frontend/setup-styled-components/)
+
+  - 설치
+
+    ```bash
+    $ npm i styled-components
+    $ npm install @types/styled-components -D
+    ```
+
+  - `styled.d.ts`
+
+    ```typescript
+    // import original module declarations
+    import "styled-components";
+    
+    // and extend them!
+    declare module "styled-components" {
+      export interface DefaultTheme {
+        borderRadius: string;
+    
+        colors: {
+          main: string;
+          secondary: string;
+        };
+      }
+    }
+    ```
+
+  - `myTheme.ts`
+
+    ```typescript
+    // myTheme.ts
+    import { DefaultTheme } from "styled-components";
+    
+    const myTheme: DefaultTheme = {
+      borderRadius: "5px",
+    
+      colors: {
+        main: "cyan",
+        secondary: "magenta",
+      },
+    };
+    
+    export { myTheme };
+    ```
+
+  - component에 적용
+
+    ```tsx
+    import React from "react";
+    import PropTypes from "prop-types";
+    import styled from "styled-components";
+    
+    const Thing = styled.div`
+      background: ${props => props.theme.colors.main}
+    `
+    ```
+
+- ThemeProvider
+
+  - [styled-components|Theming](https://styled-components.com/docs/advanced#theming)
+
+    - theme을 정의한 후, `ThemeProver` 에 theme props로 넘겨주면, 감싸진 내에서 theme을 사용 가능하다
+
+  - 사용
+
+    ```tsx
+    import { ThemeProvider } from "styled-components";
+    import { theme } from "../../styles/theme";
+    
+    const AppContainer = ({ data }) => (
+      <ThemeProvider theme={theme}>
+        <AppPresenter isLoggedIn={data.auth.isLoggedId} />
+      </ThemeProvider>
+    );
+    ```
+
+- reset styles
+
+  - [npm|styled-reset](https://www.npmjs.com/package/styled-reset)
+
+    - 설치
+
+      ```bash
+      $ npm i styled-reset
+      ```
+
+    - 사용
+
+      ```tsx
+      import React from 'react'
+      import { createGlobalStyle } from 'styled-components'
+      import reset from 'styled-reset'
+       
+      const GlobalStyle = createGlobalStyle`
+        ${reset}
+        /* other styles */
+      `
+       
+      const App = () => (
+        <React.Fragment>
+          <GlobalStyle />
+          <div>Hi, I'm an app!</div>
+        </React.Fragment>
+      }
+       
+      export default App
+      ```
+
+- TSLint rule flags
+
+  - [TSLint|rule flags](https://palantir.github.io/tslint/usage/rule-flags/) 
+
+  - ex) 
+
+    ```
+    /* tslint:disable */ - Disable all rules for the rest of the file
+    /* tslint:enable */ - Enable all rules for the rest of the file
+    /* tslint:disable:rule1 rule2 rule3... */ - Disable the listed rules for the rest of the file
+    /* tslint:enable:rule1 rule2 rule3... */ - Enable the listed rules for the rest of the file
+    // tslint:disable-next-line - Disables all rules for the following line
+    someCode(); // tslint:disable-line - Disables all rules for the current line
+    // tslint:disable-next-line:rule1 rule2 rule3... - Disables the listed rules for the next line
+    ```
+
