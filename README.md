@@ -210,4 +210,53 @@
       export default graphql(IS_LOGGED_IN)(AppContainer);
       ```
 
-      
+## 3.6 Typescript and React Components
+
+- Component 구조
+
+  ```
+  Components
+  │- App
+  │  │- AppContainer.tsx
+  │  │- AppPresenter.tsx
+  │  │- AppQueries.ts
+  │  └- index.ts
+  │- ...
+  ```
+
+  - 개별 component 폴더 내에 `Container` , `Presenter` , `index` 와 필요한 경우 `Queries` 파일들로 구성
+  - index는 폴더 구조에서 자동으로 render되는 역할
+  - Queries는 query나 mutation을 작성하는 역할
+  - Container는 Queries 를 불러와 데이터 작업을 하고 Presenter에 연결하는 역할
+  - Presenter는 보여지는 역할
+
+- typescript and react components
+
+  - `interface` 를 통해 component의 type을 정의
+
+  - 이때, react의 function component는 `React.FC<interface명>`  type
+
+    ```tsx
+    import React from "react";
+    import PropTypes from "prop-types";
+    
+    interface IProps {
+      isLoggedIn: boolean;
+    }
+    
+    const AppPresenter: React.FC<IProps> = ({ isLoggedIn }) =>
+      isLoggedIn ? <span>You are in</span> : <span>You are out</span>;
+    
+    AppPresenter.propTypes = {
+      isLoggedIn: PropTypes.bool.isRequired,
+    };
+    
+    export default AppPresenter;
+    ```
+
+  - `prop-types` 를 통해 타입 확인 추가
+
+    - [prop-types](https://ko.reactjs.org/docs/typechecking-with-proptypes.html)
+    - interface를 정의한 덕에 더 쉽게 설정 가능
+
+  - 만약 typescript 를 통해 type을 설정하지 않았다면, runtime 환경에서야 `prop-types` 를 통해 잘못을 발견할 수 있었을 것
