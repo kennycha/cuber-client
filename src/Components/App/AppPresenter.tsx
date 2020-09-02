@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import OutHome from "../../Routes/OutHome";
+import Login from "../../Routes/Login";
 import PhoneLogin from "../../Routes/PhoneLogin";
 import VerifyPhone from "../../Routes/VerifyPhone";
 import SocialLogin from "../../Routes/SocialLogin";
@@ -38,7 +38,7 @@ const LoggedInRoutes: React.FC = () => (
 
 const LoggedOutRoutes: React.FC = () => (
   <Switch>
-    <Route path={"/"} exact={true} component={OutHome} />
+    <Route path={"/"} exact={true} component={Login} />
     <Route path={"/phone-login"} component={PhoneLogin} />
     <Route path={"/verify-phone/:number"} component={VerifyPhone} />
     <Route path={"/social-login"} component={SocialLogin} />

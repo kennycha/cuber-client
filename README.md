@@ -463,3 +463,33 @@
 
   - `LoggedInRoutes`
   - `LoggedOutRoutes`
+
+## 3.12 OutHome Component
+
+- `Container` / `Presenter`
+
+  - state나 data와 component가 연결된 경우에만 Container를 생성
+  - 그렇지 않은 경우 Presenter 만으로 충분
+
+- `RouteComponentProps`
+
+  - Route로 연결된 component는 자동으로 props를 가진다
+
+  - history, location, match
+
+  - Route Component 정의 예시
+
+    ```tsx
+    import React from "react";
+    import { RouteComponentProps } from "react-router-dom";
+    
+    interface IProps extends RouteComponentProps<any> {}
+    
+    const OutHomePresenter: React.FC<IProps> = ({}) => <div></div>;
+    
+    export default OutHomePresenter;
+    ```
+
+    - `RouteComponentProps` 를 extends한 `IProps` interface를 통해 FunctionComponent 의 type 정의
+
+- 
