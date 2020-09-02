@@ -492,4 +492,47 @@
 
     - `RouteComponentProps` 를 extends한 `IProps` interface를 통해 FunctionComponent 의 type 정의
 
-- 
+## 3.13 Login Component and React Helmet
+
+- `Link`
+
+  - SPA에서 사용하는 `a` 태그
+
+  - 새로고침 하지 않고 이동
+
+  - `to` props 를 통해 이동할 path 지정
+
+  - ```tsx
+    import { Link } from "react-router-dom";
+    
+    <Link to={"/phone-login"}>
+      <span>go to phone login</span>
+    </Link>
+    ```
+
+  - 
+
+- [react-helmet](https://github.com/nfl/react-helmet)
+
+  - 페이지에 따라 사이트 title을 변경할 수 있도록 돕는 패키지
+
+    - title 외에도 Header에 들어가는 내용들 변경 가능 
+
+  - 설치
+
+    ```bash
+    $ npm install react-helmet
+    ```
+
+  - 사용
+
+    ```tsx
+    import Helmet from "react-helmet";
+    const LoginPresenter: React.FC<IProps> = () => (
+      <Container>
+    	<Helmet>
+      		<title>Login | Cuber</title>
+    	</Helmet>
+        // ...
+    ```
+
