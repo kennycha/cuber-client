@@ -80,7 +80,10 @@ const LoginPresenter: React.FC<IProps> = () => (
         <PhoneLogin>
           <Subtitle>Get Moving with Cuber</Subtitle>
           <FakeInput>
-            🇰🇷 +82 <Grey>Enter your mobile number</Grey>
+            <span role="img" aria-labelledby="flag">
+              🇰🇷
+            </span>{" "}
+            +82 <Grey>Enter your mobile number</Grey>
           </FakeInput>
         </PhoneLogin>
       </Link>

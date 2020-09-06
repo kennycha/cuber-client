@@ -536,3 +536,11 @@
         // ...
     ```
 
+## 3.14 Route Components Review
+
+- [iconmonstr](https://iconmonstr.com/)
+  - `fontawesome`의 경우 몇개의 아이콘을 위해 너무 큰 용량을 잡아먹음
+  - `iconmonstr`의  `<Embed>` 를 통해 편하게 아이콘 사용 가능
+- [jsoncountries](https://github.com/serranoarevalo/jsoncountries)
+  - countries 담긴 json 파일
+
