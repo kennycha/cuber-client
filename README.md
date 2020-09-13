@@ -546,3 +546,122 @@
 
 ## 3.15~16 Inputs and Typescript
 
+- `Event Managing with Typescript`
+
+  - `React.이벤트핸들러종류<요소종류>` 의 형식으로 타입 설정
+
+    - `ChangeEventHandler`, `FormEventHandler` 등 이벤트핸들러
+    - `HTMLInputElement`, `HTMLSelectElement`, `HTMLFormElement` 등 요소종류
+
+  - ex)
+
+    ```tsx
+    const onInputChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+      const {
+        target: { value },
+      } = event;
+      setPhoneNumber(value);
+    };
+    const onSelectChange: React.ChangeEventHandler<HTMLSelectElement> = (
+      event
+    ) => {
+      const {
+        target: { value },
+      } = event;
+      setCountryCode(value);
+    };
+    const onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+      event.preventDefault();
+      console.log(countryCode, phoneNumber);
+    };
+    ```
+
+- `React Hooks with Typescript`
+
+  - [velopert|타입스크립트로 리액트 Hooks 사용하기](https://velog.io/@velopert/using-hooks-with-typescript)
+
+  - 강의에서는 클래스 컴포넌트를 사용하고 있어서, 이를 함수형으로 변경해서 작성
+
+  - 컴포넌트 state 관리를 위해 react hooks 사용
+
+  - 이때, state의 type은 정의 단계에서 아래와 같이 generic을 통해 설정
+
+    - 이때, 단순한 자료형의 경우 default 값 등을 통해 typescript가 판단할 수 있어 타입 설정이 필수적이지 않다
+
+    ```tsx
+    const PhoneLoginContainer: React.FC<RouteComponentProps<any>> = () => {
+      const [countryCode, setCountryCode] = useState<string>("+82");
+      const [phoneNumber, setPhoneNumber] = useState<string>("12345");
+      return (
+        <PhoneLoginPresenter
+          countryCode={countryCode}
+          phoneNumber={phoneNumber}
+        />
+      );
+    };
+    
+    export default PhoneLoginContainer
+    ```
+
+## 3.17 Notifications with React Toastify
+
+- `react-toastify`
+
+  - [npm|react-toastify](https://www.npmjs.com/package/react-toastify)
+
+  - [React-Toastify|Docs](https://fkhadra.github.io/react-toastify/introduction/)
+
+  - 설치
+
+    ```bash
+    $ npm install react-toastify
+    ```
+
+  - 적용
+
+    - `AppContainer.tsx` 에서 `AppPresenter` 를 `ToastContainer`로 감싸준다
+
+      ```tsx
+      import AppPresenter from "./AppPresenter";
+      import "react-toastify/dist/ReactToastify.min.css";
+      import StyledToastContainer from "../StyledToastContainer";
+      
+      const AppContainer = ({ data }) => (
+        <>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <AppPresenter isLoggedIn={data.auth.isLoggedIn} />
+          </ThemeProvider>
+          <StyledToastContainer draggable={true} position={"bottom-center"} />
+        </>
+      );
+      ```
+
+    - `styled-components` 를 통한 css customizing 가능
+
+      ```tsx
+      const StyledToastContainer = styled(ToastContainer)`
+        width: 100%;
+      `;
+      ```
+
+  - 종류
+
+    - default, info, success, warning, error, dark
+
+- 전화번호 형식 검증
+
+  - 정규표현식을 사용해 전화번호 형식 검증
+
+    ```tsx
+    const isValid = /^\+[1-9]{1}[0-9]{7,11}$/.test(
+      `${countryCode}${phoneNumber}`
+    );
+    if (isValid) {
+      return;
+    } else {
+      toast.error("Please write a valid phone number");
+    }
+    ```
+
+  
